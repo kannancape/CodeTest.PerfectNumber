@@ -7,6 +7,11 @@ using Microsoft.Extensions.Logging.Abstractions;
 using System.Collections.Generic;
 using CodeTest.Model.Response;
 using Microsoft.AspNetCore.Http;
+using CodeTest.BL.Interface;
+using System;
+using System.ComponentModel;
+using CodeTest.BL;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeTestService.UnitTest
 {
@@ -15,16 +20,27 @@ namespace CodeTestService.UnitTest
     {
 
         private PerfectNumberController _controller;
+        private IModelService _modelService;
+
         private ILogger<PerfectNumberController> logger = new NullLogger<PerfectNumberController>();
-        [TestMethod]
-        public void TestSetUp()
-        { 
-            _controller = new PerfectNumberController(logger);
+        
+        public   PerfectNumberControllerTest()
+        {
+            var services = new ServiceCollection();
+            services.AddTransient<IModelService, ModelService>();
+            var serviceProvider = services.BuildServiceProvider();
+            _modelService = serviceProvider.GetRequiredService<IModelService>();
+            _controller = new PerfectNumberController(logger, _modelService);
+        }
+
+        private IModelService CreateInstance()
+        {
+            throw new NotImplementedException();
         }
 
         [TestMethod]
-        public void GetCustomerInfoMethod()
-        { 
+        public void PerfectNo_Returns_Success()
+        {
             int startNo = 1;
             int endNo = 30;
             var result = _controller.Get(startNo, endNo);
@@ -33,6 +49,16 @@ namespace CodeTestService.UnitTest
             Assert.IsNotNull(result);
             Assert.AreEqual(StatusCodes.Status200OK, tocheck.StatusCode);
         }
-        
+
+        [TestMethod]
+        public void PerfectNo_Returns_400_When_Zero()
+        {
+            int startNo = -1;
+            int endNo = -5;
+            IActionResult result = _controller.Get(startNo, endNo);
+            var actual = result as ObjectResult;
+            Assert.IsNotNull(result);
+
+        }
     }
 }

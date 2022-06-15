@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CodeTest.BL.Interface;
 using CodeTest.Model.Response;
 
 namespace CodeTest.BL
 {
-    public class ModelService
+    public class ModelService: IModelService
     {
         public ModelService()
         {
