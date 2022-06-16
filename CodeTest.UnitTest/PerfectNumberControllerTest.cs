@@ -1,17 +1,13 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using CodeTest.BL;
+using CodeTest.BL.Interface;
 using CodeTest.WebApi.Controllers;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using System.Collections.Generic;
-using CodeTest.Model.Response;
-using Microsoft.AspNetCore.Http;
-using CodeTest.BL.Interface;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.ComponentModel;
-using CodeTest.BL;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeTestService.UnitTest
 {
@@ -23,8 +19,8 @@ namespace CodeTestService.UnitTest
         private IModelService _modelService;
 
         private ILogger<PerfectNumberController> logger = new NullLogger<PerfectNumberController>();
-        
-        public   PerfectNumberControllerTest()
+
+        public PerfectNumberControllerTest()
         {
             var services = new ServiceCollection();
             services.AddTransient<IModelService, ModelService>();

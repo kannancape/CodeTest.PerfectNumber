@@ -1,12 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using CodeTest.BL;
-using System.Collections.Generic;
-using CodeTest.Model.Response;
-using Microsoft.Extensions.Logging;
-using System.Runtime.Serialization;
+﻿using CodeTest.BL.Interface;
 using CodeTest.Excepetion;
-using CodeTest.BL.Interface;
+using CodeTest.Model.Response;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CodeTest.WebApi.Controllers
 {
@@ -20,7 +15,7 @@ namespace CodeTest.WebApi.Controllers
         public PerfectNumberController(ILogger<PerfectNumberController> logger, IModelService modelService)
         {
             this._logger = logger;
-            this._modelService = modelService ?? throw new ArgumentNullException(nameof(modelService)); 
+            this._modelService = modelService ?? throw new ArgumentNullException(nameof(modelService));
         }
         [HttpGet(Name = "GetPerfectNumber")]
         [ProducesResponseType(typeof(PerfectNumberOutput), StatusCodes.Status400BadRequest)]
@@ -39,9 +34,9 @@ namespace CodeTest.WebApi.Controllers
             {
                 perfectNoList = _modelService.GetPerfectNumber(startNo, endNo);
                 if (perfectNoList.Any())
-                { 
+                {
                     return Ok(perfectNoList);
-                } 
+                }
                 return NoContent();
             }
             catch (Exception ex)

@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeTest.BL.Interface;
+﻿using CodeTest.BL.Interface;
 using CodeTest.Model.Response;
 
 namespace CodeTest.BL
 {
-    public class ModelService: IModelService
+    public class ModelService : IModelService
     {
         public ModelService()
         {
-            
+
         }
         public List<PerfectNumberOutput> GetPerfectNumber(int startNo, int endNo)
         {
